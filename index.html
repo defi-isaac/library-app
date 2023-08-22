@@ -5,11 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library App</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </head>
 <body>
 
-    <div class="bookDisplay">
+    <header>
+        <h1>LIBRARY</h1>
+        <button id="addBook">ADD NEW BOOK</button>
+    </header>
+
+    <dialog id="bookForm">
+        <form action="" method="get">
+            <label for="bookName">Name of book:</label>
+            <input type="text" id="bookName" name="bookName" required>
+            <label for="bookAuthor">Author of book:</label>
+            <input type="text" id="bookAuthor" name="bookAuthor" required>
+            <label for="bookPages">Number of pages:</label>
+            <input type="number" min="20" max="1000" id="bookPages" name="bookPages" required>
+            <label for="haveRead">Have read?</label>
+            <input type="checkbox" id="haveRead" name="haveRead">
+            <button type="submit">Submit</button>
+        </form>
+        <button id="closeForm">X</button>
+    </dialog>
+
+    <div id="bookDisplay">
 
     </div>
     
