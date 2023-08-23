@@ -1,9 +1,15 @@
 const bookDisplay = document.querySelector('#bookDisplay');
+const formModal = document.querySelector('#formModal');
 const bookForm = document.querySelector('#bookForm');
 const addBook = document.querySelector('#addBook');
-const closeForm = document.querySelector('#closeForm')
+const closeForm = document.querySelector('#closeForm');
+const submitBook = document.querySelector('#submitBook');
+const bookName = document.querySelector('#bookName');
+const bookAuthor = document.querySelector('#bookAuthor');
+const bookPages = document.querySelector('#bookPages');
+const haveRead = document.querySelector('#haveRead');
 
-const myLibrary = [['Book1', 'Author1', 100, true]];
+const myLibrary = [];
 
 function Book() {
     // the constructor...
@@ -37,15 +43,22 @@ function displayBooks () {
 , bookAuthor (input), bookPages (num), haveRead (checkbox) */
 // Form content etc is done in HTML via 'modal'
 
+bookForm.addEventListener('submit', (event) => {
+    addBookToLibrary(`${bookName.value}`, `${bookAuthor.value}`, bookPages.value, haveRead.checked);
+    event.preventDefault();
+    formModal.close();
+    bookForm.reset();
+});
+
 addBook.addEventListener('click', () => {
-    bookForm.showModal()
+    formModal.showModal()
 })
 
 // Add an event listener to a 'cross' button
 // This should remove the div from the bookDisplay and also close the modal
 
 closeForm.addEventListener('click' , () => {
-    bookForm.close()
+    formModal.close()
 })
 
 // Include toggle button for 'have read' or have not read

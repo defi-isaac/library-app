@@ -14,8 +14,8 @@
         <button id="addBook">ADD NEW BOOK</button>
     </header>
 
-    <dialog id="bookForm">
-        <form action="" method="get">
+    <dialog id="formModal">
+        <form action="" method="get" id="bookForm">
             <label for="bookName">Name of book:</label>
             <input type="text" id="bookName" name="bookName" required>
             <label for="bookAuthor">Author of book:</label>
@@ -24,7 +24,7 @@
             <input type="number" min="20" max="1000" id="bookPages" name="bookPages" required>
             <label for="haveRead">Have read?</label>
             <input type="checkbox" id="haveRead" name="haveRead">
-            <button type="submit">Submit</button>
+            <button type="submit" id="submitBook">Submit</button>
         </form>
         <button id="closeForm">X</button>
     </dialog>
