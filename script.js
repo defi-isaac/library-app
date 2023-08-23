@@ -9,7 +9,9 @@ const bookAuthor = document.querySelector('#bookAuthor');
 const bookPages = document.querySelector('#bookPages');
 const haveRead = document.querySelector('#haveRead');
 
-const myLibrary = [];
+const myLibrary = [['book', 'author', 100, true]];
+let RECENT_BOOK = myLibrary[myLibrary.length - 1];
+displayBooks();
 
 function Book() {
     // the constructor...
@@ -21,19 +23,32 @@ function addBookToLibrary(bookName, bookAuthor, bookPages, haveRead) {
 }
 
 function displayBooks () {
-        const uniqueBook = document.createElement('div');
+    RECENT_BOOK = myLibrary[myLibrary.length - 1];
+    const uniqueBook = document.createElement('div');
+    const bookInfo = document.createElement('div');
 
-        for (let i = 0; i < myLibrary[myLibrary.length - 1].length; i++) {
-            uniqueBook.textContent += ` ${myLibrary[myLibrary.length - 1][i]}`;
-        }
-        bookDisplay.append(uniqueBook);   
+    for (let i = 0; i < RECENT_BOOK.length - 1; i++) {
+        bookInfo.innerHTML += ` ${RECENT_BOOK[i]} <br>`
+    }
+
+    bookDisplay.append(uniqueBook);   
+    uniqueBook.append(bookInfo);
+    if (uniqueBook.previousElementSibling == null) {
+        uniqueBook.classList.add('1');
+    } else {
+        // Access sibling class and increment it
+        let newClassList = parseInt(uniqueBook.previousElementSibling.className[uniqueBook.previousElementSibling.className.length - 1]) + 1;
+        // Assign it to uniqueBook
+        uniqueBook.classList.add(`${newClassList}`);
+        
+    }
 }
 
 bookForm.addEventListener('submit', (event) => {
     addBookToLibrary(`${bookName.value}`, `${bookAuthor.value}`, bookPages.value, haveRead.checked);
     event.preventDefault();
-    formModal.close();
     displayBooks();
+    formModal.close();
     bookForm.reset();
 });
 
