@@ -26,22 +26,43 @@ function displayBooks () {
     RECENT_BOOK = myLibrary[myLibrary.length - 1];
     const uniqueBook = document.createElement('div');
     const bookInfo = document.createElement('div');
+    const removeBook = document.createElement('button');
+    const readStatus = document.createElement('button');
 
     for (let i = 0; i < RECENT_BOOK.length - 1; i++) {
         bookInfo.innerHTML += ` ${RECENT_BOOK[i]} <br>`
     }
+    if (RECENT_BOOK[RECENT_BOOK.length - 1] == true) {
+        readStatus.textContent = 'Have read'
+        readStatus.classList.add('haveRead');
+    } else {
+        readStatus.textContent = "Haven't read"
+    }
+    readStatus.classList.add('readStatus');
+    removeBook.textContent = 'X';
 
     bookDisplay.append(uniqueBook);   
     uniqueBook.append(bookInfo);
+    uniqueBook.append(readStatus);
+    uniqueBook.append(removeBook);
+
     if (uniqueBook.previousElementSibling == null) {
         uniqueBook.classList.add('1');
     } else {
-        // Access sibling class and increment it
         let newClassList = parseInt(uniqueBook.previousElementSibling.className[uniqueBook.previousElementSibling.className.length - 1]) + 1;
-        // Assign it to uniqueBook
         uniqueBook.classList.add(`${newClassList}`);
-        
     }
+    readStatus.addEventListener('click', () => {
+        if (readStatus.className.includes('haveRead')) {
+            readStatus.textContent = "Haven't read";
+        } else {
+            readStatus.textContent = 'Have read';
+        }
+        readStatus.classList.toggle('haveRead');
+    })
+    removeBook.addEventListener('click', () => {
+        uniqueBook.remove();
+    })
 }
 
 bookForm.addEventListener('submit', (event) => {

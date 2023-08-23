@@ -1,6 +1,13 @@
 
 
-#bookDisplay div {
+#bookDisplay > div {
     width: fit-content;
     border: 1px solid red;
+}
+
+.readStatus {
+    background-color: red;
+}
+.haveRead {
+    background-color: green;
 }
