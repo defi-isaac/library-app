@@ -9,9 +9,16 @@ const bookAuthor = document.querySelector('#bookAuthor');
 const bookPages = document.querySelector('#bookPages');
 const haveRead = document.querySelector('#haveRead');
 
-const myLibrary = [new Book('book', 'author', 100, true)];
+addBook.addEventListener('click', () => {
+    formModal.showModal()
+})
+
+closeForm.addEventListener('click' , () => {
+    formModal.close()
+})
+
+const myLibrary = [];
 let RECENT_BOOK = myLibrary[myLibrary.length - 1];
-displayBooks();
 
 function Book(bookName, bookAuthor, bookPages, haveRead) {
     // the constructor...
@@ -26,6 +33,14 @@ function addBookToLibrary(bookName, bookAuthor, bookPages, haveRead) {
     myLibrary.push(new Book(bookName, bookAuthor, bookPages, haveRead));
 }
 
+bookForm.addEventListener('submit', (event) => {
+    addBookToLibrary(`${bookName.value}`, `${bookAuthor.value}`, bookPages.value, haveRead.checked);
+    event.preventDefault();
+    displayBooks();
+    formModal.close();
+    bookForm.reset();
+});
+
 function displayBooks () {
     RECENT_BOOK = myLibrary[myLibrary.length - 1];
     const uniqueBook = document.createElement('div');
@@ -34,7 +49,7 @@ function displayBooks () {
     const readStatus = document.createElement('button');
 
     // Add the most recent books information
-    // bookInfo.innerHTML
+    bookInfo.innerHTML = `Name: ${RECENT_BOOK.bookName} <br> Author: ${RECENT_BOOK.bookAuthor} <br> Pages: ${RECENT_BOOK.bookPages}`;
 
 
     if (RECENT_BOOK.haveRead == true) {
@@ -63,19 +78,3 @@ function displayBooks () {
         uniqueBook.remove();
     })
 }
-
-bookForm.addEventListener('submit', (event) => {
-    addBookToLibrary(`${bookName.value}`, `${bookAuthor.value}`, bookPages.value, haveRead.checked);
-    event.preventDefault();
-    displayBooks();
-    formModal.close();
-    bookForm.reset();
-});
-
-addBook.addEventListener('click', () => {
-    formModal.showModal()
-})
-
-closeForm.addEventListener('click' , () => {
-    formModal.close()
-})
