@@ -34,7 +34,7 @@ function displayBooks () {
     const readStatus = document.createElement('button');
 
     // Add the most recent books information
-
+    // bookInfo.innerHTML
 
 
     if (RECENT_BOOK.haveRead == true) {
