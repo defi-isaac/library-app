@@ -9,17 +9,21 @@ const bookAuthor = document.querySelector('#bookAuthor');
 const bookPages = document.querySelector('#bookPages');
 const haveRead = document.querySelector('#haveRead');
 
-const myLibrary = [['book', 'author', 100, true]];
+const myLibrary = [new Book('book', 'author', 100, true)];
 let RECENT_BOOK = myLibrary[myLibrary.length - 1];
 displayBooks();
 
-function Book() {
+function Book(bookName, bookAuthor, bookPages, haveRead) {
     // the constructor...
+    this.bookName = bookName,
+    this.bookAuthor = bookAuthor,
+    this.bookPages = bookPages,
+    this.haveRead = haveRead
 }
 
 function addBookToLibrary(bookName, bookAuthor, bookPages, haveRead) {
     // do stuff here
-    myLibrary.push([bookName, bookAuthor, bookPages, haveRead]);
+    myLibrary.push(new Book(bookName, bookAuthor, bookPages, haveRead));
 }
 
 function displayBooks () {
@@ -29,10 +33,11 @@ function displayBooks () {
     const removeBook = document.createElement('button');
     const readStatus = document.createElement('button');
 
-    for (let i = 0; i < RECENT_BOOK.length - 1; i++) {
-        bookInfo.innerHTML += ` ${RECENT_BOOK[i]} <br>`
-    }
-    if (RECENT_BOOK[RECENT_BOOK.length - 1] == true) {
+    // Add the most recent books information
+
+
+
+    if (RECENT_BOOK.haveRead == true) {
         readStatus.textContent = 'Have read'
         readStatus.classList.add('haveRead');
     } else {
@@ -46,12 +51,6 @@ function displayBooks () {
     uniqueBook.append(readStatus);
     uniqueBook.append(removeBook);
 
-    if (uniqueBook.previousElementSibling == null) {
-        uniqueBook.classList.add('1');
-    } else {
-        let newClassList = parseInt(uniqueBook.previousElementSibling.className[uniqueBook.previousElementSibling.className.length - 1]) + 1;
-        uniqueBook.classList.add(`${newClassList}`);
-    }
     readStatus.addEventListener('click', () => {
         if (readStatus.className.includes('haveRead')) {
             readStatus.textContent = "Haven't read";
@@ -80,5 +79,3 @@ addBook.addEventListener('click', () => {
 closeForm.addEventListener('click' , () => {
     formModal.close()
 })
-
-// Include toggle button for 'have read' or have not read
