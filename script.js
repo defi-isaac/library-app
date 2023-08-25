@@ -17,8 +17,9 @@ closeForm.addEventListener('click' , () => {
     formModal.close()
 })
 
-const myLibrary = [];
+const myLibrary = [new Book('Dale Carnegie', 'How to Win Friends and Influence People', 291, false)];
 let RECENT_BOOK = myLibrary[myLibrary.length - 1];
+displayBooks();
 
 function Book(bookName, bookAuthor, bookPages, haveRead) {
     // the constructor...
@@ -47,9 +48,10 @@ function displayBooks () {
     const bookInfo = document.createElement('div');
     const removeBook = document.createElement('button');
     const readStatus = document.createElement('button');
+    const bookButtons = document.createElement('div');
 
     // Add the most recent books information
-    bookInfo.innerHTML = `Name: ${RECENT_BOOK.bookName} <br> Author: ${RECENT_BOOK.bookAuthor} <br> Pages: ${RECENT_BOOK.bookPages}`;
+    if (myLibrary) bookInfo.innerHTML = `<h1>Name:</h1><p>${RECENT_BOOK.bookName}</p> <h1>Author:</h1><p>${RECENT_BOOK.bookAuthor}</p><h1>Pages:</h1><p>${RECENT_BOOK.bookPages}</p>`;
 
 
     if (RECENT_BOOK.haveRead == true) {
@@ -59,12 +61,14 @@ function displayBooks () {
         readStatus.textContent = "Haven't read"
     }
     readStatus.classList.add('readStatus');
-    removeBook.textContent = 'X';
+    removeBook.textContent = 'Remove book';
+    bookButtons.classList.add('bookButtons');
 
     bookDisplay.append(uniqueBook);   
     uniqueBook.append(bookInfo);
-    uniqueBook.append(readStatus);
-    uniqueBook.append(removeBook);
+    bookButtons.append(readStatus);
+    bookButtons.append(removeBook);
+    uniqueBook.append(bookButtons);
 
     readStatus.addEventListener('click', () => {
         if (readStatus.className.includes('haveRead')) {
